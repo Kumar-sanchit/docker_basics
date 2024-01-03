@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: depla
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mydepl
+  template:
+    metadata:
+      name: deploymenta
+      labels:
+        name: mydepl
+      annotations:
+        description: Hello from volume hostpath deployment
+    spec:
+      containers: 
+       - name: c1
+         image: centos
+         command: ["/bin/bash", "-c", "while true; do echo Hello World; sleep 5; done;"]
+         env:
+          - name: demo
+            value: hello
+         volumeMounts:
+           - name: vol1
+             mountPath: "/Users/I546178/Music/"
+      volumes:
+        - name: vol1
+          hostPath:
+            path: "/Users/I546178/Music/"          
+        
+      
+      
+        

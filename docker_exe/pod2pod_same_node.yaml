@@ -1,0 +1,55 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pod1
+  labels: 
+    env: dev
+  annotations:
+    description: Hello from pod1!! 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: dev
+  template:
+    metadata: 
+      name : pod1
+      labels:
+        env: dev
+    spec:
+      containers:
+        - name: container1
+          image: nginx
+          ports:
+           - containerPort: 80 
+          env:
+           - name: env
+             value: myEnv1
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pod2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: env
+  template:
+    metadata: 
+      name: Hello
+      labels:
+        name: env
+    spec:
+      containers:
+        - name: container2
+          image: httpd
+          ports: 
+           - containerPort: 80
+          env:
+           - name: env
+             value: myEnv2
+          
+      
+           
+  

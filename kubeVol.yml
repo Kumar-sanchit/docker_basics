@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: volume
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: testvolume
+  template:
+    metadata:
+      name: test
+      labels:
+        name : testvolume
+    spec:
+      containers:
+        - name: mycontainer
+          image: jenkins/jenkins
+          volumeMounts:
+            - name: testvolume
+              mountPath: /test
+      volumes:
+        - name: testvolume
+          gitRepo:
+            repository: "https://github.com/Kumar-sanchit/kubernetes_volume.git"
+

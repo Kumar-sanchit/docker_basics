@@ -1,0 +1,17 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: podstart
+  annotations:
+    description: my start application pod!!
+  labels: 
+    name: app1_init
+    env: deployment
+spec:
+  containers: 
+    - name: container1
+      image: imgapps
+      env: 
+       - name: myname
+         value: Sanchit   
+      imagePullPolicy: Never

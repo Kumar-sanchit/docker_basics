@@ -1,0 +1,98 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: shippingservice
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      name: Hello
+  template:
+    metadata:
+      name: shippingservice
+      labels:
+        name: Hello
+      annotations:
+        description: Hello from shipping service
+    spec:
+      containers:
+       - name: c00
+         image: nginx
+         ports:
+          - containerPort: 80
+         env:
+          - name: env
+            value: Dev
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: receivingservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: Hello
+  template:
+    metadata:
+      name: receivingservice
+      labels:
+        name: Hello
+      annotations:
+        description: Hello from receivng service
+    spec:
+      containers:
+       - name: c01 
+         image: httpd
+         ports: 
+          - containerPort: 80
+         env:
+          - name: env
+            value: prod 
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pickingservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: Hello
+  template:
+    metadata:
+      name: pickingservice
+      labels: 
+        name: Hello
+      annotations:
+        description: Hello from Picking Service
+    spec:
+      containers:
+       - name: c02
+         image: nginx
+         ports:
+          - containerPort: 80
+         env:
+          - name: env1
+            value: Hello3
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nodeportservice
+spec:
+  ports:
+   - port: 80
+     targetPort: 80
+  selector:
+    name: Hello
+  type: NodePort 
+          
+      
+        
+    
+    
+         
+           
+      
+         

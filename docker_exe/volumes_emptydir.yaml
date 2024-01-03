@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: deplyomentvol
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: deployment
+  template:
+    metadata:
+      name: deploymentvol
+      labels:
+        name: deployment
+      annotations:
+        description: Hello from volumes
+    spec:
+      containers:
+       - name: c00
+         image: ubuntu
+         command: ["/bin/bash","-c","while true; do echo Hello from container c00;sleep 5;done;"]
+         env: 
+          - name: spoc
+            value: sanchit
+         volumeMounts: 
+          - name: volume1
+            mountPath: "/tmp/data"
+       - name: c01
+         image : centos
+         command: ["/bin/bash","-c", "sleep 10000;"]
+         env:
+          - name: spec
+            value: hello 
+         volumeMounts:
+          - name: volume1
+            mountPath: "/tmp/data"   
+      volumes:
+       - name: volume1
+         emptyDir: {}
+         

@@ -1,0 +1,27 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:
+  name: myrs
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      myname: sanchit
+    #matchExpressions:
+     # - {key: myname, operator: In, values: [sanchit, Bupinder, Bhopendra]}
+      #- {key: env, operator: NotIn, values: [production]}
+  template:
+    metadata: 
+      name: myrs
+      annotations:
+        description: Hello Welcome from ReplicaSet
+      labels: 
+        myname: sanchit
+    spec:
+      containers: 
+       - name: mycontainer
+         image: ubuntu
+         command: ["/bin/bash","-c","while true; do echo Hello world!; sleep 5; done;"]
+         env: 
+          - name: sanchit
+            value: java

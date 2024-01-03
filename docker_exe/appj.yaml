@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata: 
+  name: testingpod
+  labels: 
+    name: sanchit
+    env: dev
+  annotations: 
+    description: This is a testing pod which is created for testing purpose!!
+spec:
+  containers:
+   - name: testcont1
+     image: ubuntu
+     command: ["/bin/bash", "-c", "while true; do echo Hello From Container1; sleep 5; done;"]
+     env: 
+      - name: env
+        value: My Development Environment
+      - name: env1
+        value: My dev environment 
+  nodeSelector: 
+    hardware: t2-medium

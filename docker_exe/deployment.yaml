@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name : testdeployment
+  annotations:
+    description: This is my first deployment! using kind as Deployment
+  labels:
+    name: deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: testdeployment
+  template:
+    metadata:
+      name: deployment
+      labels: 
+        name: testdeployment
+    spec:
+      containers: 
+        - name: container1
+          image: centos
+          command: ["/bin/bash", "-c", "while true;do echo Love All!!; sleep 5; done;"]
+          env: 
+           - name: greetings
+             value: hello
+  
+    
+  
